@@ -127,7 +127,6 @@
             background: #f8f9fa;
             border-radius: 10px;
             padding: 5px;
-            flex-wrap: wrap;
         }
 
         .tab {
@@ -142,12 +141,6 @@
             background: transparent;
             color: #6c757d;
             font-size: 14px;
-            min-width: calc(25% - 2.5px);
-        }
-
-        .tab.banking {
-            min-width: calc(50% - 2.5px);
-            margin-top: 5px;
         }
 
         .tab:hover {
@@ -158,10 +151,6 @@
         .tab.active {
             background: #667eea;
             color: white;
-        }
-
-        .tab.hidden {
-            display: none;
         }
 
         .tab-content {
@@ -182,28 +171,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .bank-logo {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            border-radius: 8px;
-            border: 1px solid #e1e5e9;
-            margin-right: 10px;
-        }
-
-        .bank-option {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background: white;
         }
 
         .color-picker-group {
@@ -522,15 +489,6 @@
             display: none;
         }
 
-        .loading {
-            color: #007bff;
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            display: none;
-        }
-
         .footer {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -593,21 +551,17 @@
             }
 
             .tabs {
-                flex-direction: column;
+                flex-wrap: wrap;
             }
 
             .tab {
-                min-width: 100%;
-                margin-top: 0;
+                flex: 1;
+                min-width: calc(50% - 2.5px);
                 margin-bottom: 5px;
             }
 
             .preset-colors {
                 grid-template-columns: repeat(4, 1fr);
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -642,9 +596,6 @@
                     </button>
                     <button class="tab" data-tab="contact" type="button">
                         <i class="fas fa-address-card"></i> <span data-translate="tab-contact">Liên hệ</span>
-                    </button>
-                    <button class="tab banking hidden" data-tab="banking" type="button">
-                        <i class="fas fa-university"></i> <span data-translate="tab-banking">VietQR Banking</span>
                     </button>
                 </div>
 
@@ -700,37 +651,6 @@
                     </div>
                 </div>
 
-                <div class="tab-content" id="banking">
-                    <div class="form-group">
-                        <label for="bankSelect" data-translate="label-bank">Chọn ngân hàng:</label>
-                        <select id="bankSelect">
-                            <option value="">Chọn ngân hàng...</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="accountNumber" data-translate="label-account">Số tài khoản:</label>
-                        <input type="text" id="accountNumber" data-translate-placeholder="placeholder-account">
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="amount" data-translate="label-amount">Số tiền (VNĐ):</label>
-                            <input type="number" id="amount" min="0" data-translate-placeholder="placeholder-amount">
-                        </div>
-                        <div class="form-group">
-                            <label for="template" data-translate="label-template">Template:</label>
-                            <select id="template">
-                                <option value="compact">Compact</option>
-                                <option value="qr_only">QR Only</option>
-                                <option value="print">Print</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" data-translate="label-description">Nội dung chuyển khoản:</label>
-                        <textarea id="description" data-translate-placeholder="placeholder-description"></textarea>
-                    </div>
-                </div>
-
                 <div class="form-group">
                     <label data-translate="label-logo">Logo (tùy chọn):</label>
                     <div class="logo-upload">
@@ -772,9 +692,6 @@
 
                 <div class="error-message" id="errorMessage"></div>
                 <div class="success-message" id="successMessage"></div>
-                <div class="loading" id="loadingMessage">
-                    <i class="fas fa-spinner fa-spin"></i> Đang tạo mã QR VietQR...
-                </div>
             </div>
 
             <div class="qr-section">
@@ -839,7 +756,6 @@
                 'tab-url': 'URL',
                 'tab-wifi': 'WiFi',
                 'tab-contact': 'Liên hệ',
-                'tab-banking': 'VietQR Banking',
                 'label-text': 'Nhập văn bản:',
                 'placeholder-text': 'Nhập văn bản tại đây',
                 'label-url': 'Nhập URL:',
@@ -858,14 +774,6 @@
                 'placeholder-contact-email': 'example@email.com',
                 'label-contact-org': 'Tổ chức:',
                 'placeholder-contact-org': 'Tên công ty/tổ chức',
-                'label-bank': 'Chọn ngân hàng:',
-                'label-account': 'Số tài khoản:',
-                'placeholder-account': 'Nhập số tài khoản',
-                'label-amount': 'Số tiền (VNĐ):',
-                'placeholder-amount': 'Nhập số tiền',
-                'label-template': 'Template:',
-                'label-description': 'Nội dung chuyển khoản:',
-                'placeholder-description': 'Nội dung chuyển tiền...',
                 'label-logo': 'Logo (tùy chọn):',
                 'upload-logo': 'Chọn logo',
                 'remove-logo': 'Xóa',
@@ -888,7 +796,6 @@
                 'tab-url': 'URL',
                 'tab-wifi': 'WiFi',
                 'tab-contact': 'Contact',
-                'tab-banking': 'VietQR Banking',
                 'label-text': 'Enter text:',
                 'placeholder-text': 'Enter text here',
                 'label-url': 'Enter URL:',
@@ -907,14 +814,6 @@
                 'placeholder-contact-email': 'example@email.com',
                 'label-contact-org': 'Organization:',
                 'placeholder-contact-org': 'Company/Organization name',
-                'label-bank': 'Select bank:',
-                'label-account': 'Account number:',
-                'placeholder-account': 'Enter account number',
-                'label-amount': 'Amount (VNĐ):',
-                'placeholder-amount': 'Enter amount',
-                'label-template': 'Template:',
-                'label-description': 'Transfer description:',
-                'placeholder-description': 'Transfer content...',
                 'label-logo': 'Logo (optional):',
                 'upload-logo': 'Choose logo',
                 'remove-logo': 'Remove',
@@ -937,7 +836,6 @@
                 'tab-url': '网址',
                 'tab-wifi': 'WiFi',
                 'tab-contact': '联系人',
-                'tab-banking': 'VietQR银行',
                 'label-text': '输入文本：',
                 'placeholder-text': '在此输入文本',
                 'label-url': '输入网址：',
@@ -956,14 +854,6 @@
                 'placeholder-contact-email': 'example@email.com',
                 'label-contact-org': '组织：',
                 'placeholder-contact-org': '公司/组织名称',
-                'label-bank': '选择银行：',
-                'label-account': '账号：',
-                'placeholder-account': '输入账号',
-                'label-amount': '金额(VNĐ)：',
-                'placeholder-amount': '输入金额',
-                'label-template': '模板：',
-                'label-description': '转账说明：',
-                'placeholder-description': '转账内容...',
                 'label-logo': '标志(可选)：',
                 'upload-logo': '选择标志',
                 'remove-logo': '删除',
@@ -986,7 +876,6 @@
                 'tab-url': 'URL',
                 'tab-wifi': 'WiFi',
                 'tab-contact': '連絡先',
-                'tab-banking': 'VietQR銀行',
                 'label-text': 'テキストを入力：',
                 'placeholder-text': 'ここにテキストを入力',
                 'label-url': 'URLを入力：',
@@ -1005,14 +894,6 @@
                 'placeholder-contact-email': 'example@email.com',
                 'label-contact-org': '組織：',
                 'placeholder-contact-org': '会社/組織名',
-                'label-bank': '銀行選択：',
-                'label-account': '口座番号：',
-                'placeholder-account': '口座番号を入力',
-                'label-amount': '金額(VNĐ)：',
-                'placeholder-amount': '金額を入力',
-                'label-template': 'テンプレート：',
-                'label-description': '振込内容：',
-                'placeholder-description': '振込内容...',
                 'label-logo': 'ロゴ(オプション)：',
                 'upload-logo': 'ロゴを選択',
                 'remove-logo': '削除',
@@ -1035,7 +916,6 @@
                 'tab-url': 'URL',
                 'tab-wifi': 'WiFi',
                 'tab-contact': '연락처',
-                'tab-banking': 'VietQR 은행',
                 'label-text': '텍스트 입력:',
                 'placeholder-text': '여기에 텍스트 입력',
                 'label-url': 'URL 입력:',
@@ -1054,14 +934,6 @@
                 'placeholder-contact-email': 'example@email.com',
                 'label-contact-org': '조직:',
                 'placeholder-contact-org': '회사/조직명',
-                'label-bank': '은행 선택:',
-                'label-account': '계좌번호:',
-                'placeholder-account': '계좌번호 입력',
-                'label-amount': '금액(VNĐ):',
-                'placeholder-amount': '금액 입력',
-                'label-template': '템플릿:',
-                'label-description': '이체 내용:',
-                'placeholder-description': '이체 내용...',
                 'label-logo': '로고(선택사항):',
                 'upload-logo': '로고 선택',
                 'remove-logo': '제거',
@@ -1079,40 +951,6 @@
             }
         };
 
-        // Danh sách ngân hàng Việt Nam
-        const vietnamBanks = [
-            { id: "970415", name: "Vietinbank", shortName: "VTB" },
-            { id: "970422", name: "MB Bank", shortName: "MBB" },
-            { id: "970407", name: "Techcombank", shortName: "TCB" },
-            { id: "970416", name: "ACB", shortName: "ACB" },
-            { id: "970405", name: "Agribank", shortName: "AGB" },
-            { id: "970418", name: "BIDV", shortName: "BIDV" },
-            { id: "970432", name: "VPBank", shortName: "VPB" },
-            { id: "970423", name: "TPBank", shortName: "TPB" },
-            { id: "970403", name: "Sacombank", shortName: "STB" },
-            { id: "970448", name: "OCB", shortName: "OCB" },
-            { id: "970414", name: "Oceanbank", shortName: "OJB" },
-            { id: "970431", name: "Eximbank", shortName: "EIB" },
-            { id: "970426", name: "MSB", shortName: "MSB" },
-            { id: "970441", name: "VIB", shortName: "VIB" },
-            { id: "970443", name: "SHB", shortName: "SHB" },
-            { id: "970454", name: "VIETCAPITALBANK", shortName: "VCCB" },
-            { id: "970409", name: "BacABank", shortName: "BAB" },
-            { id: "970412", name: "PVcomBank", shortName: "PVCB" },
-            { id: "970440", name: "SeABank", shortName: "SEAB" },
-            { id: "970438", name: "BaoVietBank", shortName: "BVB" },
-            { id: "970427", name: "VietABank", shortName: "VAB" },
-            { id: "970433", name: "VietBank", shortName: "VBB" },
-            { id: "970458", name: "UOB", shortName: "UOB" },
-            { id: "970429", name: "SCB", shortName: "SCB" },
-            { id: "970419", name: "NCB", shortName: "NCB" },
-            { id: "970424", name: "ShinhanBank", shortName: "SHBVN" },
-            { id: "970444", name: "CBBank", shortName: "CBB" },
-            { id: "970446", name: "CAKE", shortName: "CAKE" },
-            { id: "970421", name: "VRB", shortName: "VRB" },
-            { id: "970457", name: "Woori", shortName: "WVN" }
-        ];
-
         class QRGenerator {
             constructor() {
                 this.currentSize = 300;
@@ -1121,23 +959,9 @@
                 this.currentFormat = 'png';
                 this.currentLanguage = 'vi';
                 this.logoImage = null;
-                this.banks = vietnamBanks;
                 this.initializeEventListeners();
                 this.loadLanguage();
-                this.populateBankList();
                 setTimeout(() => this.generateQR(), 100);
-            }
-
-            populateBankList() {
-                const bankSelect = document.getElementById('bankSelect');
-                bankSelect.innerHTML = '<option value="">Chọn ngân hàng...</option>';
-                
-                this.banks.forEach(bank => {
-                    const option = document.createElement('option');
-                    option.value = bank.id;
-                    option.textContent = `${bank.name} (${bank.shortName})`;
-                    bankSelect.appendChild(option);
-                });
             }
 
             initializeEventListeners() {
@@ -1171,13 +995,6 @@
                 document.getElementById('contactEmail').addEventListener('input', () => this.generateQR());
                 document.getElementById('contactOrg').addEventListener('input', () => this.generateQR());
 
-                // Banking inputs
-                document.getElementById('bankSelect').addEventListener('change', () => this.generateVietQR());
-                document.getElementById('accountNumber').addEventListener('input', () => this.generateVietQR());
-                document.getElementById('amount').addEventListener('input', () => this.generateVietQR());
-                document.getElementById('description').addEventListener('input', () => this.generateVietQR());
-                document.getElementById('template').addEventListener('change', () => this.generateVietQR());
-
                 // Logo upload
                 document.getElementById('logoInput').addEventListener('change', (e) => this.handleLogoUpload(e));
 
@@ -1192,7 +1009,7 @@
                         const bg = e.target.dataset.bg;
                         document.getElementById('foregroundColor').value = fg;
                         document.getElementById('backgroundColor').value = bg;
-                        this.generateCurrentTab();
+                        this.generateQR();
                     });
                 });
 
@@ -1200,7 +1017,7 @@
                 document.getElementById('sizeSlider').addEventListener('input', (e) => {
                     this.currentSize = parseInt(e.target.value);
                     document.getElementById('sizeDisplay').textContent = `${this.currentSize}px`;
-                    this.generateCurrentTab();
+                    this.generateQR();
                 });
 
                 // Copy button
@@ -1215,84 +1032,6 @@
                 document.getElementById('downloadBtn').addEventListener('click', () => this.downloadQR());
             }
 
-            generateCurrentTab() {
-                const activeTab = document.querySelector('.tab.active');
-                if (activeTab && activeTab.dataset.tab === 'banking') {
-                    this.generateVietQR();
-                } else {
-                    this.generateQR();
-                }
-            }
-
-            async generateVietQR() {
-                const bankId = document.getElementById('bankSelect').value;
-                const accountNumber = document.getElementById('accountNumber').value;
-                const amount = document.getElementById('amount').value;
-                const description = document.getElementById('description').value;
-                const template = document.getElementById('template').value;
-
-                if (!bankId || !accountNumber) {
-                    this.showPlaceholder();
-                    return;
-                }
-
-                try {
-                    this.showLoading(true);
-                    this.hideError();
-
-                    // Tạo URL VietQR API
-                    let vietQRUrl = `https://img.vietqr.io/image/${bankId}-${accountNumber}-${template}.png?`;
-                    
-                    const params = new URLSearchParams();
-                    if (amount && amount > 0) {
-                        params.append('amount', amount);
-                    }
-                    if (description) {
-                        params.append('addInfo', description);
-                    }
-                    params.append('accountName', 'QR Generator');
-
-                    vietQRUrl += params.toString();
-
-                    // Tạo QR từ URL VietQR
-                    const qr = qrcode(0, 'M');
-                    qr.addData(vietQRUrl);
-                    qr.make();
-
-                    // Hiển thị QR
-                    const moduleCount = qr.getModuleCount();
-                    const cellSize = Math.floor(this.currentSize / moduleCount);
-                    const actualSize = cellSize * moduleCount;
-                    
-                    const qrHTML = this.createQRHTML(qr, cellSize, actualSize);
-                    
-                    const qrContainer = document.getElementById('qrcode');
-                    const placeholder = document.getElementById('qrPlaceholder');
-                    
-                    qrContainer.innerHTML = `<div class="qr-container">${qrHTML}</div>`;
-                    placeholder.style.display = 'none';
-                    document.getElementById('downloadBtn').disabled = false;
-                    document.getElementById('copyBtn').disabled = false;
-                    
-                    this.currentQRCode = qr;
-                    this.currentData = vietQRUrl;
-
-                    this.showLoading(false);
-                    this.showSuccess('Đã tạo mã QR VietQR thành công!');
-
-                } catch (error) {
-                    console.error('Lỗi tạo VietQR:', error);
-                    this.showError('Có lỗi xảy ra khi tạo mã QR VietQR. Vui lòng thử lại.');
-                    this.showPlaceholder();
-                    this.showLoading(false);
-                }
-            }
-
-            showLoading(show) {
-                const loadingEl = document.getElementById('loadingMessage');
-                loadingEl.style.display = show ? 'block' : 'none';
-            }
-
             handleLogoUpload(event) {
                 const file = event.target.files[0];
                 if (file && file.type.startsWith('image/')) {
@@ -1303,7 +1042,7 @@
                             this.logoImage = img;
                             document.getElementById('logoImg').src = e.target.result;
                             document.getElementById('logoPreview').style.display = 'block';
-                            this.generateCurrentTab();
+                            this.generateQR();
                         };
                         img.onerror = () => {
                             this.showError('Không thể tải logo. Vui lòng chọn file ảnh hợp lệ.');
@@ -1338,30 +1077,13 @@
                     targetContent.classList.add('active');
                 }
 
-                if (tabName === 'banking') {
-                    this.generateVietQR();
-                } else {
-                    this.generateQR();
-                }
+                this.generateQR();
             }
 
             changeLanguage(lang) {
                 this.currentLanguage = lang;
                 document.getElementById('html-root').lang = lang;
                 localStorage.setItem('qr-language', lang);
-                
-                // Show/hide banking tab based on language
-                const bankingTab = document.querySelector('[data-tab="banking"]');
-                if (lang === 'vi') {
-                    bankingTab.classList.remove('hidden');
-                } else {
-                    bankingTab.classList.add('hidden');
-                    // Switch to text tab if currently on banking
-                    if (document.querySelector('.tab.active').dataset.tab === 'banking') {
-                        this.switchTab('text');
-                    }
-                }
-                
                 this.updateTexts();
                 this.updatePlaceholders();
             }
@@ -1445,10 +1167,6 @@
                         
                         return `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nORG:${org}\nTEL:${phone}\nEMAIL:${email}\nEND:VCARD`;
                     
-                    case 'banking':
-                        // Banking will be handled by generateVietQR
-                        return '';
-                    
                     default:
                         return '';
                 }
@@ -1470,9 +1188,10 @@
                     qr.addData(data);
                     qr.make();
                     
+                    // Tính toán kích thước để đảm bảo QR luôn vuông
                     const moduleCount = qr.getModuleCount();
                     const cellSize = Math.floor(this.currentSize / moduleCount);
-                    const actualSize = cellSize * moduleCount;
+                    const actualSize = cellSize * moduleCount; // Đảm bảo kích thước vuông
                     
                     const qrHTML = this.createQRHTML(qr, cellSize, actualSize);
                     
@@ -1480,4 +1199,252 @@
                     const placeholder = document.getElementById('qrPlaceholder');
                     
                     qrContainer.innerHTML = `<div class="qr-container">${qrHTML}</div>`;
-                    placeholder.style.display = '
+                    placeholder.style.display = 'none';
+                    document.getElementById('downloadBtn').disabled = false;
+                    document.getElementById('copyBtn').disabled = false;
+                    
+                    this.currentQRCode = qr;
+                    
+                } catch (error) {
+                    console.error('Lỗi tạo mã QR:', error);
+                    this.showError('Có lỗi xảy ra khi tạo mã QR. Vui lòng thử lại.');
+                    this.showPlaceholder();
+                }
+            }
+
+            createQRHTML(qr, cellSize, actualSize) {
+                const moduleCount = qr.getModuleCount();
+                const foregroundColor = document.getElementById('foregroundColor').value;
+                const backgroundColor = document.getElementById('backgroundColor').value;
+                
+                let html = `<div class="qr-wrapper" style="background-color: ${backgroundColor}; padding: 10px; border-radius: 10px; display: inline-block; position: relative;">`;
+                html += `<div style="font-size: 0; line-height: 0; width: ${actualSize}px; height: ${actualSize}px;">`;
+                
+                for (let row = 0; row < moduleCount; row++) {
+                    for (let col = 0; col < moduleCount; col++) {
+                        const isDark = qr.isDark(row, col);
+                        const color = isDark ? foregroundColor : backgroundColor;
+                        
+                        html += `<div style="display: inline-block; width: ${cellSize}px; height: ${cellSize}px; background-color: ${color};"></div>`;
+                    }
+                    html += '<br>';
+                }
+                
+                html += '</div>';
+                
+                // Add logo if exists
+                if (this.logoImage) {
+                    const logoSize = Math.floor(actualSize * 0.15); // 15% của kích thước QR
+                    html += `<div class="logo-overlay" style="width: ${logoSize}px; height: ${logoSize}px;">`;
+                    html += `<img src="${this.logoImage.src}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">`;
+                    html += '</div>';
+                }
+                
+                html += '</div>';
+                return html;
+            }
+
+            async copyQRToClipboard() {
+                if (!this.currentQRCode) return;
+                
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.querySelector('span').textContent;
+                
+                try {
+                    const canvas = this.createCanvas();
+                    
+                    // Chuyển canvas thành blob
+                    canvas.toBlob(async (blob) => {
+                        try {
+                            if (navigator.clipboard && navigator.clipboard.write) {
+                                // Sử dụng Clipboard API hiện đại
+                                await navigator.clipboard.write([
+                                    new ClipboardItem({ 'image/png': blob })
+                                ]);
+                                
+                                // Visual feedback
+                                copyBtn.classList.add('copied');
+                                copyBtn.querySelector('span').textContent = '✓ Copied!';
+                                this.showSuccess(translations[this.currentLanguage]['copied-success']);
+                                
+                                setTimeout(() => {
+                                    copyBtn.classList.remove('copied');
+                                    copyBtn.querySelector('span').textContent = originalText;
+                                }, 2000);
+                            } else {
+                                // Fallback: tạo link download tạm thời
+                                const url = URL.createObjectURL(blob);
+                                const link = document.createElement('a');
+                                link.href = url;
+                                link.download = 'qrcode-temp.png';
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                                URL.revokeObjectURL(url);
+                                
+                                this.showSuccess('QR code đã được tải xuống (trình duyệt không hỗ trợ copy)');
+                            }
+                        } catch (error) {
+                            console.error('Copy error:', error);
+                            this.showError(translations[this.currentLanguage]['copy-error']);
+                        }
+                    }, 'image/png');
+                    
+                } catch (error) {
+                    console.error('Copy error:', error);
+                    this.showError(translations[this.currentLanguage]['copy-error']);
+                }
+            }
+
+            createCanvas() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const moduleCount = this.currentQRCode.getModuleCount();
+                const cellSize = 10; // Kích thước cố định cho export
+                const padding = 20;
+                
+                canvas.width = (moduleCount * cellSize) + (padding * 2);
+                canvas.height = (moduleCount * cellSize) + (padding * 2);
+                
+                const foregroundColor = document.getElementById('foregroundColor').value;
+                const backgroundColor = document.getElementById('backgroundColor').value;
+                
+                // Vẽ nền
+                ctx.fillStyle = backgroundColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Vẽ QR code
+                ctx.fillStyle = foregroundColor;
+                for (let row = 0; row < moduleCount; row++) {
+                    for (let col = 0; col < moduleCount; col++) {
+                        if (this.currentQRCode.isDark(row, col)) {
+                            const x = padding + (col * cellSize);
+                            const y = padding + (row * cellSize);
+                            ctx.fillRect(x, y, cellSize, cellSize);
+                        }
+                    }
+                }
+                
+                // Vẽ logo nếu có
+                if (this.logoImage) {
+                    const logoSize = Math.floor((moduleCount * cellSize) * 0.15);
+                    const logoX = (canvas.width - logoSize) / 2;
+                    const logoY = (canvas.height - logoSize) / 2;
+                    
+                    // Nền trắng cho logo
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(logoX - 4, logoY - 4, logoSize + 8, logoSize + 8);
+                    
+                    // Vẽ logo
+                    ctx.drawImage(this.logoImage, logoX, logoY, logoSize, logoSize);
+                }
+                
+                return canvas;
+            }
+
+            showPlaceholder() {
+                document.getElementById('qrPlaceholder').style.display = 'flex';
+                document.getElementById('qrcode').innerHTML = '';
+                document.getElementById('downloadBtn').disabled = true;
+                document.getElementById('copyBtn').disabled = true;
+                this.currentQRCode = null;
+            }
+
+            showError(message) {
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                setTimeout(() => errorDiv.style.display = 'none', 5000);
+            }
+
+            showSuccess(message) {
+                const successDiv = document.getElementById('successMessage');
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+                setTimeout(() => successDiv.style.display = 'none', 3000);
+            }
+
+            hideError() {
+                document.getElementById('errorMessage').style.display = 'none';
+            }
+
+            downloadQR() {
+                if (!this.currentQRCode) return;
+                
+                try {
+                    if (this.currentFormat === 'svg') {
+                        this.downloadSVG();
+                    } else {
+                        this.downloadRaster();
+                    }
+                } catch (error) {
+                    console.error('Download error:', error);
+                    this.showError('Có lỗi xảy ra khi tải xuống. Vui lòng thử lại.');
+                }
+            }
+
+            downloadSVG() {
+                const moduleCount = this.currentQRCode.getModuleCount();
+                const cellSize = 10;
+                const padding = 20;
+                const size = (moduleCount * cellSize) + (padding * 2);
+                
+                const foregroundColor = document.getElementById('foregroundColor').value;
+                const backgroundColor = document.getElementById('backgroundColor').value;
+                
+                let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+                svg += `<rect width="${size}" height="${size}" fill="${backgroundColor}"/>`;
+                
+                for (let row = 0; row < moduleCount; row++) {
+                    for (let col = 0; col < moduleCount; col++) {
+                        if (this.currentQRCode.isDark(row, col)) {
+                            const x = padding + (col * cellSize);
+                            const y = padding + (row * cellSize);
+                            svg += `<rect x="${x}" y="${y}" width="${cellSize}" height="${cellSize}" fill="${foregroundColor}"/>`;
+                        }
+                    }
+                }
+                
+                svg += '</svg>';
+                
+                const blob = new Blob([svg], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = `qrcode-${Date.now()}.svg`;
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            }
+
+            downloadRaster() {
+                const canvas = this.createCanvas();
+                const link = document.createElement('a');
+                link.download = `qrcode-${Date.now()}.${this.currentFormat}`;
+                link.href = canvas.toDataURL(`image/${this.currentFormat}`, 0.95);
+                link.click();
+            }
+        }
+
+        // Global functions
+        function removeLogo() {
+            if (window.qrGenerator) {
+                window.qrGenerator.logoImage = null;
+                document.getElementById('logoPreview').style.display = 'none';
+                document.getElementById('logoInput').value = '';
+                window.qrGenerator.generateQR();
+            }
+        }
+
+        // Khởi tạo ứng dụng
+        function initializeApp() {
+            if (typeof qrcode !== 'undefined') {
+                window.qrGenerator = new QRGenerator();
+            } else {
+                setTimeout(initializeApp, 100);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
